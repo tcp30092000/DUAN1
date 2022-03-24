@@ -1,0 +1,24 @@
+---
+- name: THUC HIEN TAO LOOPBACK # Tên để hiển thị
+  hosts: all # Thực thi cho tất cả các host
+  gather_facts: no # Không lấy thông tin thiết bị mạng
+
+  tasks: # Các tác vụ sẽ thực thi
+    - name: Dat ip cho loopback # Tên hiển thị
+      ios_l3_interface: # Do cấu hình Router cũng như Switch L3
+        name: loopback {{ item.number }}  # Tên cổng
+        ipv4: 10.0.{{ item.number }}.1/24 # Địa chỉ cổng
+      with_items:
+        - { number: 1 }
+        - { number: 2 }
+        - { number: 3 }
+ 
+    - name: Show interface
+      ios_command:
+        commands:
+          - show ip int brief
+      register: output  #Lưu kết quả
+
+    - debug: var=output.stdout_lines # In kết quả ra màn hình
+
+

@@ -1,0 +1,13 @@
+---
+- name: CAU HINH INTERFACE TREN THIET BI  # tên hiển thị 
+  hosts: all # Áp dụng thực thi cho tất cả các hosts
+  gather_facts: no # Bỏ qua trả về thông tin các thiết bị mạng
+
+  tasks: # Các task cần thực thi
+    - name: Show Interface
+      ios_command:
+        commands:
+          - show ip int brief # thực hiện như lệnh trong command line
+      register: output # kết quả trả về
+
+    - debug: var=output.stdout_lines # In kết quả ra màn hình và gán vào biến var
