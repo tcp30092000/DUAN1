@@ -45,8 +45,8 @@
           - encapsulation dot1Q {{item.vlan}}
           - ip address 192.168.{{item.vlan}}.1 255.255.255.0
       with_items:
-        - { subint: fastEthernet0/1.10 , vlan: 10 }
-        - { subint: fastEthernet0/1.20 , vlan: 20 }
+        - { subint: Ethernet0/1.10 , vlan: 10 }
+        - { subint: Ethernet0/1.20 , vlan: 20 }
 
     - name: Show ip
       ios_command:
