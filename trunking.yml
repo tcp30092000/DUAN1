@@ -14,19 +14,20 @@
         name: "{{ item.int }}"
         mode: access
         access_vlan: "{{ item.vlan }}"
-      with_items:
+      with_items: # thay the cac cong
         - { vlan: "10", int: "Ethernet0/2"}
         - { vlan: "20", int: "Ethernet0/3"}
     - name: chuyen cong e0/1 sang mode trunk
       ios_config:
-        parents:
+        parents: #thay the bang cong Switch ket noi den Router
           - int e0/1
         lines:
-          - sw trunk en dot1Q
+          - sw trunk encapsulation dot1Q
           - sw mode trunk
-#        match: strict
 
-- name: Cau hinh tren router
+
+
+- name: Cau hinh tren Router
   hosts: Router
   gather_facts: no
 
@@ -34,7 +35,7 @@
     - name: Dat ip cho cong Ethernet0/1
       ios_l3_interface:
         name: Ethernet0/1
-        ipv4: 192.168.1.1/24
+        ipv4: 192.168.2.1/24
 
     - name: dat ip subinterface
       ios_config:
@@ -44,9 +45,9 @@
           - encapsulation dot1Q {{item.vlan}}
           - ip address 192.168.{{item.vlan}}.1 255.255.255.0
       with_items:
-        - { subint: Ethernet0/1.10 , vlan: 10 }
-        - { subint: Ethernet0/1.20 , vlan: 20 }
-      
+        - { subint: fastEthernet0/1.10 , vlan: 10 }
+        - { subint: fastEthernet0/1.20 , vlan: 20 }
+
     - name: Show ip
       ios_command:
         commands:
@@ -54,3 +55,4 @@
       register: show_ip
 
     - debug: var=show_ip.stdout_lines
+
