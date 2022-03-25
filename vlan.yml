@@ -1,6 +1,6 @@
 ---
 - name: Tao vlan
-  hosts: all
+  hosts: Switch
   gather_facts: no
 
   tasks:
