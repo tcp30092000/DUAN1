@@ -1,6 +1,6 @@
 ---
 - name: THUC HIEN TAO LOOPBACK # Tên để hiển thị
-  hosts: all # Thực thi cho tất cả các host
+  hosts: Router # Thực thi cho tất cả các host
   gather_facts: no # Không lấy thông tin thiết bị mạng
 
   tasks: # Các tác vụ sẽ thực thi
